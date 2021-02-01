@@ -1,0 +1,2 @@
+MySQL_python==1.2.5
+requests==2.25.1
