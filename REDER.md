@@ -1,6 +1,6 @@
-##一个简单的eth合约地址解析服务
+一个简单的eth合约地址解析服务
 
-### 配置文件：
+配置文件：
 config.properties 中为项目相关配置，字段解释如下：
 
     db.init=false                       # 是否进行数据库初始化（首次启动设置为 true）
@@ -20,7 +20,7 @@ dal.properties 中是项目数据库相关操作，结构为 key=value 模式，
     result = query(dal.get_value("querybyhash.eth_contract_transaction"), {"hash":"0xb0e580cc2009b265ff3a413ffa47230d23fcbf7f7c2a36f10fd845537b9303f1"}})
 
 
-###DB：
+DB：
 ![RUNOOB 图标](imgs/db.png)
 数据库结构如上图,创建语句见项目 initsql.sql
 
