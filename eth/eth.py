@@ -55,13 +55,19 @@ def analysisTransactionByHash(url, tran_hash):
     print (json.dumps(transaction, skipkeys=True, indent=2))
 
 
+def analysisBlockByNumber(url, num):
+    parms = {"jsonrpc": "2.0", "method": "eth_getBlockByNumber", "params": [hex(num), True], "id": "1"}
+    block = sendPost(url, parms)
+    print (json.dumps(block, skipkeys=True, indent=2))
+
+
 def sendPost(url, parms):
     response = requests.post(url=url, json=parms)
     return response.json()
 
 
 def splitTranInput(input):
-    if (input is None or len(input) < 10):
+    if input is None or len(input) < 10:
         return
     result = None
     parmms = input[10:len(input)]
@@ -78,3 +84,5 @@ if __name__ == '__main__':
     URL = "http://10.10.144.96:8545"
     hash = "0xb0e580cc2009b265ff3a413ffa47230d23fcbf7f7c2a36f10fd845537b9303f1"
     analysisTransactionByHash(URL, hash)
+    block_num = 251990;
+    analysisBlockByNumber(url=URL,num=block_num)
