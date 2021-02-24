@@ -40,9 +40,9 @@ def analysisUSDTTransByNumber(url, num, blockNum, trans):
             trans["from"] = transaction.get("from")
             trans["timestamp"] = int(block.get("result").get("timestamp"), 16)
             trans["type"] = 1
-            trans = splitTranInput(transaction.get("input"), trans)
-            method = trans["method"]
+            method = getMethodId(transaction.get("input"))
             if method == "0xa9059cbb":
+                trans = splitTranInput(transaction.get("input"), trans)
                 save(dal.get_value("insert.eth_USDT_transaction"), trans)
                 usdt_count = usdt_count + 1
     print ("blocknum=%d    trans=%d   USDT=%d" % (num, len(transactions), usdt_count))
@@ -51,6 +51,13 @@ def analysisUSDTTransByNumber(url, num, blockNum, trans):
 def sendPost(url, parms):
     response = requests.post(url=url, json=parms)
     return response.json()
+
+
+def getMethodId(input):
+    if input is None or len(input) < 10:
+        return
+    method = input[0:10]
+    return method
 
 
 def splitTranInput(input, trans):
