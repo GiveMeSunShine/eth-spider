@@ -1,4 +1,6 @@
 # coding=utf-8
+import json
+
 import MySQLdb
 import sys
 import os
@@ -39,13 +41,17 @@ def initDB():
 
 
 def save(sql, parms):
-    conn = MySQLdb.connect(host=property.get_value("db.host"), port=property.getInt("db.port"), user=property.get_value("db.user"), passwd=property.get_value("db.passwd"), db=property.get_value("db.name"))
-    cur = conn.cursor()
-    result = cur.execute(sql, parms)
-    conn.commit()
-    cur.close()
-    conn.close()
-    return result
+    try:
+        conn = MySQLdb.connect(host=property.get_value("db.host"), port=property.getInt("db.port"), user=property.get_value("db.user"), passwd=property.get_value("db.passwd"), db=property.get_value("db.name"))
+        cur = conn.cursor()
+        print (json.dumps(parms, skipkeys=True, indent=2))
+        result = cur.execute(sql, parms)
+        conn.commit()
+        cur.close()
+        conn.close()
+        return result
+    except OperationalError:
+        print OperationalError.message
 
 
 

@@ -31,6 +31,7 @@ def analysisUSDTTransByNumber(url, num, blockNum, trans):
     block = sendPost(url, parms)
     transactions = block.get("result").get("transactions")
     usdt_count = 0
+    # print ("处理第 [%d/%d] 个区块 [%d] 笔交易数据" % (num, blockNum, len(transactions)))
     for transaction in transactions:
         toAddress = transaction.get("to")
         if toAddress == "0xdac17f958d2ee523a2206206994597c13d831ec7":
@@ -40,8 +41,10 @@ def analysisUSDTTransByNumber(url, num, blockNum, trans):
             trans["timestamp"] = int(block.get("result").get("timestamp"), 16)
             trans["type"] = 1
             trans = splitTranInput(transaction.get("input"), trans)
-            save(dal.get_value("insert.eth_USDT_transaction"), trans)
-            usdt_count = usdt_count + 1
+            method = trans["method"]
+            if method == "0xa9059cbb":
+                save(dal.get_value("insert.eth_USDT_transaction"), trans)
+                usdt_count = usdt_count + 1
     print ("blocknum=%d    trans=%d   USDT=%d" % (num, len(transactions), usdt_count))
 
 
@@ -59,5 +62,5 @@ def splitTranInput(input, trans):
         trans["method"] = method
         _to = parmms[0:64]
         trans["to"] = "0x" + _to[len(_to)-40:len(_to)]
-        trans["amount"] = int(parmms[64:128], 16)
+        trans["amount"] = format(float(int(parmms[64:128], 16))/float(1000000), '.8f')
     return trans
