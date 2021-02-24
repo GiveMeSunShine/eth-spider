@@ -82,7 +82,7 @@ def splitTranInput(input):
 
 if __name__ == '__main__':
     URL = "http://10.10.144.96:8545"
-    hash = "0xb0e580cc2009b265ff3a413ffa47230d23fcbf7f7c2a36f10fd845537b9303f1"
+    hash = "0xfc8fb2a9871ae6f3c77b1952f836a64e6c796fbe9ce987c058d484d8f8dc86bb"
     analysisTransactionByHash(URL, hash)
-    block_num = 251990;
-    analysisBlockByNumber(url=URL,num=block_num)
+    # block_num = 251990
+    # analysisBlockByNumber(url=URL,num=block_num)

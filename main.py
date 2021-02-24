@@ -5,7 +5,7 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 # Press the green button in the gutter to run the script.
-from eth.eth import start
+from eth.eth_usdt import start
 from common import init
 from common import property
 

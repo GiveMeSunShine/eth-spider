@@ -17,3 +17,14 @@ CREATE TABLE `eth_contract_transaction` (
   KEY `idx_blknumber_txindex` (`block_number`,`transaction_index`),
   KEY `idx_transaction_timestamp` (`timestamp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+
+CREATE TABLE `usdt` (
+  `blocknum` bigint(20) DEFAULT NULL COMMENT '所属区块号',
+  `txid` varchar(66) NOT NULL COMMENT '交易ID',
+  `from` varchar(66) DEFAULT NULL,
+  `to` varchar(66) DEFAULT NULL,
+  `amount` decimal(32,8) DEFAULT NULL COMMENT '金额',
+  `type` tinyint(4) NOT NULL COMMENT '0:omni、1:ERC20、2:TRC20',
+  PRIMARY KEY (`txid`,`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin
